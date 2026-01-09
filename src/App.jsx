@@ -1,56 +1,47 @@
 import React from 'react';
-import { Layout } from './components/Layout';
-import { StatCard } from './components/StatCard';
-import { CreativeCard } from './components/CreativeCard';
-import { PERFORMANCE_DATA, CREATIVES } from './data/mockData';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Filter } from 'lucide-react';
+import FeatureCard from '../components/FeatureCard';
+import API from '../api';
 
 export default function App() {
   return (
-    <Layout>
-      <header className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Creative Insights</h1>
-          <p className="text-slate-500 text-sm">Real-time performance of your visual assets.</p>
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <div className="text-2xl font-bold tracking-tight text-blue-600">PrimeGigs</div>
+          <div className="hidden space-x-8 md:flex">
+            <a href="#features" className="text-sm font-medium hover:text-blue-600">Features</a>
+            <a href="#" className="text-sm font-medium hover:text-blue-600">Explore</a>
+            <a href="#" className="text-sm font-medium hover:text-blue-600">Pricing</a>
+          </div>
+          <button className="rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 shadow-lg shadow-blue-200">
+            Get Started
+          </button>
         </div>
-        <button className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-lg hover:border-indigo-300 transition-all shadow-sm">
-          <Filter size={16} />
-          <span className="text-sm font-semibold">Filter Range</span>
-        </button>
-      </header>
+      </nav>
 
-      {/* Stats Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Avg. CTR" value="3.24%" trend="12%" isUp={true} /> {/* StatCard component to display average click-through rate */}
-        <StatCard title="Conv. Rate" value="1.8%" trend="2.4%" isUp={false} />
-        <StatCard title="Spend" value="$12.4k" trend="8%" isUp={true} />
-        <StatCard title="ROAS" value="4.2x" trend="15%" isUp={true} />
-      </div>
-
-      {/* Chart Section */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 mb-8 shadow-sm">
-        <h3 className="font-bold mb-6 text-slate-800">Engagement Over Time</h3>
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={PERFORMANCE_DATA}> // LineChart component to visualize performance data
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-              <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-              <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} />
-              <Line type="monotone" dataKey="ctr" stroke="#4f46e5" strokeWidth={4} dot={{ r: 6, fill: '#4f46e5', strokeWidth: 2, stroke: '#fff' }} />
-            </LineChart>
-          </ResponsiveContainer>
+      {/* Hero Section */}
+      <section className="relative px-6 py-24 lg:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <span className="mb-4 inline-block rounded-full bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-600 ring-1 ring-inset ring-blue-700/10">
+            Over 10k+ gigs completed this month
+          </span>
+          <h1 className="mb-6 text-5xl font-extrabold tracking-tight text-slate-900 lg:text-7xl">
+            Get Gigs Done, <span className="text-blue-600">Lightning Fast.</span>
+          </h1>
+          <p className="mb-10 text-lg leading-8 text-slate-600 sm:text-xl">
+            The world's most efficient marketplace for micro-tasks. Connect with top-tier talent or find your next side hustle in seconds.
+          </p>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <button className="rounded-xl bg-blue-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-blue-200 transition hover:bg-blue-700 hover:-translate-y-0.5">
+              Hire Talent
+            </button>
+            <button className="rounded-xl border border-slate-200 bg-white px-8 py-4 text-lg font-bold text-slate-700 transition hover:bg-slate-50">
+              Start Earning
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* Assets Grid */}
-      <h3 className="font-bold text-xl mb-6 text-slate-800">Top Performing Creatives</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {CREATIVES.map(creative => (
-          <CreativeCard key={creative.id} creative={creative} />
-        ))}
-      </div>
-    </Layout>
+      </section>
+    </div>
   );
 }
