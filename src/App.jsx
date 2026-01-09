@@ -1,8 +1,21 @@
 import React from 'react';
-import FeatureCard from '../components/FeatureCard';
-import API from '../api';
+import FeatureCard from './components/FeatureCard';
+import GigCard from './components/GigCard';
+import API from './api'; // Assume an API utility is set up for making requests
+
+
 
 export default function App() {
+
+  const [gigs, setGigs] = React.useState([]);
+
+  React.useEffect(() => {
+    API.get('gigs/')
+      .then(res => setGigs(res.data.slice(0, 3))) // Show 3 featured gigs
+      .catch(err => console.error(err));
+  }, []);
+
+  
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       {/* Navigation */}
@@ -39,6 +52,59 @@ export default function App() {
             <button className="rounded-xl border border-slate-200 bg-white px-8 py-4 text-lg font-bold text-slate-700 transition hover:bg-slate-50">
               Start Earning
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gray-50 text-center">
+        <h2 className="text-4xl font-bold mb-12">How It Works</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          <FeatureCard
+            title="Post or Offer a Gig"
+            description="Freelancers create ready-to-buy gigs; clients hire instantly."
+            icon="📌"
+          />
+          <FeatureCard
+            title="Secure Payments"
+            description="Pay through safe gateways with milestone tracking."
+            icon="💰"
+          />
+          <FeatureCard
+            title="Fast Delivery"
+            description="Gigs delivered in 1–7 days depending on task."
+            icon="⚡"
+          />
+          <FeatureCard
+            title="Ratings & Reviews"
+            description="Build trust with transparent feedback and reviews."
+            icon="⭐"
+          />
+        </div>
+      </section>
+
+       
+      {/* Popular Gigs */}
+      <section className="py-24 text-center">
+        <h2 className="text-4xl font-bold mb-12">Popular Gigs</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          {gigs.map(gig => (
+            <GigCard key={gig.id} gig={gig} />
+          ))}
+        </div>
+      </section>
+
+          {/* Testimonials */}
+      <section className="py-24 bg-gray-100 text-center">
+        <h2 className="text-4xl font-bold mb-12">What Our Users Say</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          <div className="max-w-xs p-6 bg-white rounded shadow">
+            <p className="text-gray-700 mb-4">"I completed my first gig in under a day! Amazing platform."</p>
+            <h3 className="font-bold">– Jane D., Freelancer</h3>
+          </div>
+          <div className="max-w-xs p-6 bg-white rounded shadow">
+            <p className="text-gray-700 mb-4">"Hiring micro-tasks has never been easier. Highly recommend!"</p>
+            <h3 className="font-bold">– Mark S., Client</h3>
           </div>
         </div>
       </section>
