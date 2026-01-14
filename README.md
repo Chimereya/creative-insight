@@ -21,7 +21,7 @@ A simple visual-first performance tracking dashboard built with **React**, **Tai
 
 1. **Clone the repo:**
    ```bash
-   git clone origin https://github.com/Chimereya/creative-insight.git
+   git clone https://github.com/Chimereya/creative-insight.git
 
 
 
